@@ -10,6 +10,9 @@ import { LuHandCoins, LuWalletMinimal } from 'react-icons/lu';
 import { IoMdCard } from "react-icons/io";
 import { addThousandsSeparator } from '../../utils/helper';
 import RecentTransactions from '../../components/Dashboard/RecentTransactions';
+import FinanceOverview from '../../components/Dashboard/FinanceOverview';
+import Expence from './Expense';
+import ExpenceTransactions from '../../components/Dashboard/ExpenceTransactions';
 
 const Home = () => {
   useUserAuth();
@@ -80,6 +83,17 @@ const Home = () => {
             transactions = {dashboardData?.recentTransactions}
             onSeeMore={() => navigate("/expense")}
             />
+
+          <FinanceOverview
+            totalBalance={dashboardData?.totalBalance || 0}
+            totalIncome={dashboardData?.totalIncome || 0}
+            totalExpense={dashboardData?.totalExpense|| 0}
+          />
+
+          <ExpenceTransactions
+            transactions={dashboardData?.last30DaysExpenses?.transactions || []}
+            onSeeMore={() => navigate("/expense")}
+          />
         </div>
       </div>
     </DashboardLayout>
