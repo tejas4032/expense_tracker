@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import DashboardLayout from '../../components/layouts/DashboardLayout'
 import { useUserAuth } from '../../hooks/useUserAuth';
-import { useNavigate } from 'react-router-dom';
+import { data, useNavigate } from 'react-router-dom';
 import axiosInstance from '../../utils/axiosInstance';
 import { API_PATHS } from '../../utils/apiPath';
 import { RiInfoCardFill } from 'react-icons/ri';
@@ -13,6 +13,9 @@ import RecentTransactions from '../../components/Dashboard/RecentTransactions';
 import FinanceOverview from '../../components/Dashboard/FinanceOverview';
 import Expence from './Expense';
 import ExpenceTransactions from '../../components/Dashboard/ExpenceTransactions';
+import Last30DaysExpenses from '../../components/Dashboard/Last30DaysExpenses';
+import RecentIncomeWithChart from '../../components/Dashboard/RecentIncomeWithChart';
+import RecentIncome from '../../components/Dashboard/RecentIncome';
 
 const Home = () => {
   useUserAuth();
@@ -93,6 +96,21 @@ const Home = () => {
           <ExpenceTransactions
             transactions={dashboardData?.last30DaysExpenses?.transactions || []}
             onSeeMore={() => navigate("/expense")}
+          />
+
+          <Last30DaysExpenses
+            data={dashboardData?.last30DaysExpenses?.transactions || [] 
+            }
+          />
+
+          <RecentIncomeWithChart
+            data={dashboardData?.last60DaysIncome?.transactions?.slice(0,4) || []}
+            totalIncome={dashboardData?.totalIncome || 0}
+          />
+
+          <RecentIncome
+            transactions={dashboardData?.last60DaysIncome?.transactions || []}
+            onSeeMore = {() => navigate("/income")}
           />
         </div>
       </div>
